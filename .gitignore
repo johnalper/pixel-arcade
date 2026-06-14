@@ -1,0 +1,21 @@
+# OS
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+
+# Python / uv / Pygame 
+**/__pycache__/
+**/*.py[cod]
+**/*$py.class
+
+# Ignore the local virtual environments created by uv
+**/.venv/
+**/venv/
+**/env/
+
+# OPTIONAL: Uncomment the line below if you want to hide uv lockfiles from your git commits
+# **/uv.lock
+
+# LÖVE2D / Lua 
+**/*.love
