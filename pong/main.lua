@@ -10,6 +10,13 @@ function love.load()
     })
 end
 
+function love.keypressed(key)
+    -- exit app on Esc key
+    if key == 'escape' then
+        love.event.quit()
+    end
+end
+
 function love.draw()
     -- print the message taking up full-width to center 
     love.graphics.printf('Hello, Pong!', 0, WINDOW_HEIGHT / 2 - 6, WINDOW_WIDTH, 'center')
