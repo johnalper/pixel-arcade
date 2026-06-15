@@ -39,16 +39,24 @@ function love.keypressed(key)
 end
 
 function love.update(dt)
+    -- left paddle movement
     if love.keyboard.isDown('w') then
-        player1Y = player1Y + -PADDLE_SPEED * dt
+        -- math.max for top collusion detection 
+        -- calculate paddle speed scaled by delta time
+        player1Y = math.max(0, player1Y + -PADDLE_SPEED * dt)
     elseif love.keyboard.isDown('s') then
-        player1Y = player1Y + PADDLE_SPEED * dt
+        -- math.min for bottom collusion detection 
+        -- calculate paddle speed scaled by delta time
+        player1Y = math.min(VIRTUAL_HEIGHT - 20, player1Y + PADDLE_SPEED * dt)
     end
 
+    -- right paddle movement
     if love.keyboard.isDown('up') then
-        player2Y = player2Y + -PADDLE_SPEED * dt
+        -- calculate top collusion and speed scaled by delta time
+        player2Y = math.max(0, player2Y + -PADDLE_SPEED * dt)
     elseif love.keyboard.isDown('down') then
-        player2Y = player2Y + PADDLE_SPEED * dt
+        -- calculate bottom collusion and speed scaled by delta time
+        player2Y = math.min(VIRTUAL_HEIGHT - 20, player2Y + PADDLE_SPEED * dt)
     end
 end
 
