@@ -36,7 +36,14 @@ function love.draw()
     love.graphics.clear(45/255, 50/255, 20/255, 1) 
     love.graphics.setFont(largeFont)
     -- print using virtual window width/height terms
-    love.graphics.printf('Hello, Pong!', 0, VIRTUAL_HEIGHT / 2 - 16, VIRTUAL_WIDTH, 'center')
+    -- love.graphics.printf('Hello, Pong!', 0, VIRTUAL_HEIGHT / 2 - 16, VIRTUAL_WIDTH, 'center')
+
+    -- paddle one
+    love.graphics.rectangle('fill', 10, 10, 5, 20) 
+    -- paddle two
+    love.graphics.rectangle('fill', VIRTUAL_WIDTH - 15, VIRTUAL_HEIGHT - 30, 5, 20) 
+    -- ball
+    love.graphics.rectangle('fill', VIRTUAL_WIDTH / 2 - 2, VIRTUAL_HEIGHT / 2 - 2, 4, 4)
     push.finish() -- end the magnification
 end
 
