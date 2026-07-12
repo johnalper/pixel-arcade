@@ -12,14 +12,25 @@ PADDLE_SPEED = 200
 function love.load()
     love.graphics.setDefaultFilter('nearest', 'nearest') -- bilinear filtering
 
+    -- seed the RNG with the current time
+    math.randomseed(os.time())
+
     largeFont = love.graphics.newFont('font.ttf', 32)    -- define large font
     smallFont = love.graphics.newFont('font.ttf', 8)     -- define small font
 
     player1Score = 0
     player2Score = 0
 
-    player1Y = 10
-    player2Y = VIRTUAL_HEIGHT - 30
+    -- ball velocity and position
+    ballX = VIRTUAL_WIDTH / 2 - 2
+    ballY = VIRTUAL_HEIGHT / 2 - 2
+
+    -- coin-flip ternary decides the left or right start
+    ballDX = math.random(2) == 1 and 100 or -100
+    ballDY = math.random(-50, 50)
+
+    player1Y = 30
+    player2Y = VIRTUAL_HEIGHT - 50
 
     love.window.setMode(WINDOW_WIDTH, WINDOW_HEIGHT, {
         resizable = false,
@@ -57,6 +68,11 @@ function love.update(dt)
     elseif love.keyboard.isDown('down') then
         -- calculate bottom collusion and speed scaled by delta time
         player2Y = math.min(VIRTUAL_HEIGHT - 20, player2Y + PADDLE_SPEED * dt)
+    end
+
+    if gameState == 'play' then
+        ballX = ballX + ballDX * dt
+        ballY = ballY + ballDY * dt
     end
 end
 
