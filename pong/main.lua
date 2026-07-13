@@ -25,9 +25,13 @@ function love.load()
     ballX = VIRTUAL_WIDTH / 2 - 2
     ballY = VIRTUAL_HEIGHT / 2 - 2
 
-    -- coin-flip ternary decides the left or right start
+    -- coin-flip ternary-like decides the left or right start
     ballDX = math.random(2) == 1 and 100 or -100
+    -- randomly choose the vertical trejactory
     ballDY = math.random(-50, 50)
+
+    -- defines the game states
+    gameState = 'start'
 
     player1Y = 30
     player2Y = VIRTUAL_HEIGHT - 50
@@ -46,6 +50,20 @@ function love.keypressed(key)
     -- exit app on Esc key
     if key == 'escape' then
         love.event.quit()
+    -- hit enter to play or reset game state
+    elseif key == 'enter' or key == 'return' then
+        if gameState == 'start' then
+            gameState = 'play'
+        else
+            gameState = 'start'
+
+            -- set ball in the middle
+            ballX = VIRTUAL_WIDTH / 2 - 2
+            ballY = VIRTUAL_HEIGHT / 2 - 2
+
+            ballDX = math.random(2) == 1 and 100 or -100
+            ballDY = math.random(-50, 50) * 1.5
+        end
     end
 end
 
@@ -70,6 +88,7 @@ function love.update(dt)
         player2Y = math.min(VIRTUAL_HEIGHT - 20, player2Y + PADDLE_SPEED * dt)
     end
 
+    -- update game state and ball state
     if gameState == 'play' then
         ballX = ballX + ballDX * dt
         ballY = ballY + ballDY * dt
@@ -81,15 +100,23 @@ function love.draw()
     -- dividing since floating point values expected
     love.graphics.clear(40/255, 45/255, 52/255, 1) 
     love.graphics.setFont(largeFont)
-    love.graphics.print(tostring(player1Score), VIRTUAL_WIDTH / 2 - 50, VIRTUAL_HEIGHT / 2 - 80)
-    love.graphics.print(tostring(player2Score), VIRTUAL_WIDTH / 2 + 30, VIRTUAL_HEIGHT / 2 - 80)
+
+    if gameState == 'start' then
+        love.graphics.printf('Hello Start State!', 0, 20, VIRTUAL_WIDTH, 'center')
+    else
+        love.graphics.printf('Hello Play State!', 0, 20, VIRTUAL_WIDTH, 'center')
+    end
+
+    --print score
+    --love.graphics.print(tostring(player1Score), VIRTUAL_WIDTH / 2 - 50, VIRTUAL_HEIGHT / 2 - 80)
+    --love.graphics.print(tostring(player2Score), VIRTUAL_WIDTH / 2 + 30, VIRTUAL_HEIGHT / 2 - 80)
 
     -- paddle one
     love.graphics.rectangle('fill', 10, player1Y, 5, 20) 
     -- paddle two
     love.graphics.rectangle('fill', VIRTUAL_WIDTH - 15, player2Y, 5, 20) 
     -- ball
-    love.graphics.rectangle('fill', VIRTUAL_WIDTH / 2 - 2, VIRTUAL_HEIGHT / 2 - 2, 4, 4)
+    love.graphics.rectangle('fill', ballX, ballY, 4, 4)
     push.finish() -- end the magnification
 end
 
