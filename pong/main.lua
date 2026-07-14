@@ -97,7 +97,9 @@ function love.update(dt)
 end
 
 function love.draw()
-    push.start() -- start the magnification
+    -- start the magnification / virtual resolution
+    push.start() 
+
     -- dividing since floating point values expected
     love.graphics.clear(40/255, 45/255, 52/255, 1) 
     love.graphics.setFont(largeFont)
@@ -108,16 +110,20 @@ function love.draw()
         love.graphics.printf('Hello Play State!', 0, 20, VIRTUAL_WIDTH, 'center')
     end
 
-    --print score
+    --print score (disabled since testing game states)
     --love.graphics.print(tostring(player1Score), VIRTUAL_WIDTH / 2 - 50, VIRTUAL_HEIGHT / 2 - 80)
     --love.graphics.print(tostring(player2Score), VIRTUAL_WIDTH / 2 + 30, VIRTUAL_HEIGHT / 2 - 80)
 
     -- paddle one
     love.graphics.rectangle('fill', 10, player1Y, 5, 20) 
+
     -- paddle two
     love.graphics.rectangle('fill', VIRTUAL_WIDTH - 15, player2Y, 5, 20) 
+
     -- ball
     love.graphics.rectangle('fill', ballX, ballY, 4, 4)
-    push.finish() -- end the magnification
+
+    -- end the magnification / virtual resolution
+    push.finish() 
 end
 
