@@ -15,26 +15,8 @@ function love.load()
     -- seed the RNG with the current time
     math.randomseed(os.time())
 
-    largeFont = love.graphics.newFont('font.ttf', 32)    -- define large font
     smallFont = love.graphics.newFont('font.ttf', 8)     -- define small font
-
-    player1Score = 0
-    player2Score = 0
-
-    -- ball velocity and position
-    ballX = VIRTUAL_WIDTH / 2 - 2
-    ballY = VIRTUAL_HEIGHT / 2 - 2
-
-    -- coin-flip ternary-like decides the left or right start
-    ballDX = math.random(2) == 1 and 100 or -100
-    -- randomly choose the vertical trejactory
-    ballDY = math.random(-50, 50)
-
-    -- defines the game states
-    gameState = 'start'
-
-    player1Y = 30
-    player2Y = VIRTUAL_HEIGHT - 50
+    largeFont = love.graphics.newFont('font.ttf', 32)    -- define large font
 
     love.window.setMode(WINDOW_WIDTH, WINDOW_HEIGHT, {
         resizable = false,
@@ -44,6 +26,25 @@ function love.load()
 
     -- virtual layer upscales and then shrinks to fit the application window
     push.setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, { upscale = 'normal' })
+
+    player1Score = 0
+    player2Score = 0
+
+    -- paddle position
+    player1Y = 30
+    player2Y = VIRTUAL_HEIGHT - 50
+
+    -- ball velocity and position
+    ballX = VIRTUAL_WIDTH / 2 - 2
+    ballY = VIRTUAL_HEIGHT / 2 - 2
+
+    -- coin-flip decides the side to shoot the ball
+    ballDX = math.random(2) == 1 and 100 or -100
+    -- randomly choose the ball trejactory
+    ballDY = math.random(-50, 50)
+
+    -- defines the game states
+    gameState = 'start'
 end
 
 function love.keypressed(key)
