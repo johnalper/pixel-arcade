@@ -1,7 +1,10 @@
+-- TODO : refactor: extract ball logic to OOP
+
 push = require 'push'
 Class = require 'class'
 
 require 'Paddle'
+require 'Ball'
 
 WINDOW_WIDTH = 1280
 WINDOW_HEIGHT = 720
@@ -34,17 +37,11 @@ function love.load()
     player1 = Paddle(10, 30, 5, 20)
     player2 = Paddle(VIRTUAL_WIDTH - 10, VIRTUAL_HEIGHT - 30, 5, 20)
 
+    -- place the ball
+    ball = Ball(VIRTUAL_WIDTH / 2 - 2, VIRTUAL_HEIGHT / 2 - 2, 4, 4)
+
     player1Score = 0
     player2Score = 0
-
-    -- ball velocity and position
-    ballX = VIRTUAL_WIDTH / 2 - 2
-    ballY = VIRTUAL_HEIGHT / 2 - 2
-
-    -- coin-flip decides the side to shoot the ball
-    ballDX = math.random(2) == 1 and 100 or -100
-    -- randomly choose the ball trejactory
-    ballDY = math.random(-50, 50)
 
     -- defines the game states
     gameState = 'start'
