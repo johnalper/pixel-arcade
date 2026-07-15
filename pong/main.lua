@@ -59,11 +59,7 @@ function love.keypressed(key)
             gameState = 'start'
 
             -- set ball in the middle
-            ballX = VIRTUAL_WIDTH / 2 - 2
-            ballY = VIRTUAL_HEIGHT / 2 - 2
-
-            ballDX = math.random(2) == 1 and 100 or -100
-            ballDY = math.random(-50, 50) * 1.5
+            ball:reset()
         end
     end
 end
@@ -89,8 +85,7 @@ function love.update(dt)
 
     -- update game state and ball state
     if gameState == 'play' then
-        ballX = ballX + ballDX * dt
-        ballY = ballY + ballDY * dt
+        ball:update(dt)
     end
 
     player1:update(dt)
@@ -120,7 +115,7 @@ function love.draw()
     player2:render()
 
     -- ball
-    love.graphics.rectangle('fill', ballX, ballY, 4, 4)
+    ball:render()
 
     -- end the magnification / virtual resolution
     push.finish() 
