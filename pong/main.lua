@@ -1,5 +1,3 @@
--- TODO : refactor: extract ball logic to OOP
-
 push = require 'push'
 Class = require 'class'
 
@@ -17,6 +15,9 @@ PADDLE_SPEED = 200
 
 function love.load()
     love.graphics.setDefaultFilter('nearest', 'nearest') -- bilinear filtering
+
+    -- set the title of the application window
+    love.window.setTitle('Pong')
 
     -- seed the RNG with the current time
     math.randomseed(os.time())
